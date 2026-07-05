@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMRT Engineering Portals</title>
+    <style>
+        :root {
+            --smrt-navy: #002855;
+            --smrt-blue: #004080;
+            --smrt-light-blue: #00A3E0;
+            --bg-base: #f4f8fc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-main);
+            /* Technical Blueprint / Dot Grid Background */
+            background: 
+                radial-gradient(circle, rgba(0, 40, 85, 0.04) 1.5px, transparent 1.5px),
+                linear-gradient(160deg, #ffffff 0%, var(--bg-base) 40%, #e2e8f0 100%);
+            background-size: 24px 24px, 100% 100%;
+            background-attachment: fixed;
+        }
+
+        header {
+            width: 100%;
+            background: linear-gradient(135deg, var(--smrt-navy) 0%, var(--smrt-blue) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 40, 85, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle geometric overlay for header */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.03) 48%, rgba(255,255,255,0.03) 52%, transparent 52%);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.85;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(0, 40, 85, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top accent line for cards */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--smrt-blue), var(--smrt-light-blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 40, 85, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+            border-color: var(--smrt-light-blue);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(0, 163, 224, 0.1);
+            color: var(--smrt-blue);
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            color: var(--smrt-navy);
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0 0 25px 0;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .card .btn {
+            background-color: var(--smrt-navy);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .card:hover .btn {
+            background-color: var(--smrt-light-blue);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 25px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(0, 40, 85, 0.05);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 95%; gap: 20px; }
+            .card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SMRT Engineering Portals</h1>
+        <p>Centralized Access for Checklists, Signals & Point Systems</p>
+    </header>
+
+    <main class="container">
+        
+        <a href="https://srtc-cm-checklist.netlify.app/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">CM</div>
+                <h2>SRTC CM Checklist</h2>
+                <p>Access the SRTC Corrective Maintenance Checklist portal. Hosted securely on Netlify.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+        <a href="https://wru-cm-checklist.netlify.app/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">CM</div>
+                <h2>WRU CM Checklist</h2>
+                <p>Access the WRU Corrective Maintenance Checklist portal. Hosted securely on Netlify.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+        <a href="https://smrt-sig.github.io/CM-CheckList/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">SIG</div>
+                <h2>Signals CM Checklist</h2>
+                <p>Access the Signals Corrective Maintenance Checklist hosted on GitHub Pages.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+        <a href="https://smrt-sig.github.io/PIC-checklist/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">PIC</div>
+                <h2>PIC Checklist</h2>
+                <p>Access the Person In Charge (PIC) Checklist hosted on GitHub Pages.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+        <a href="https://smrt-sig.github.io/Point-Bypass/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">PB</div>
+                <h2>Point Bypass (Main)</h2>
+                <p>Access the primary Point Bypass tool, documentation, and operational guides.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+        <a href="https://wong7878.github.io/Point-ByPass-/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">PB</div>
+                <h2>Point Bypass (Alt)</h2>
+                <p>Access the alternative Point Bypass repository, tools, and secondary resources.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+        <!-- NEWLY ADDED CARD -->
+        <a href="https://smrt-sig.github.io/TT_ES/" target="_blank" rel="noopener noreferrer" class="card">
+            <div>
+                <div class="card-icon">TT</div>
+                <h2>TT_ES Portal</h2>
+                <p>Access the TT_ES tool, documentation, and operational guides hosted on GitHub Pages.</p>
+            </div>
+            <div class="btn">Launch Portal <span>&rarr;</span></div>
+        </a>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SMRT Engineering Portals. Internal Use Only.</p>
+    </footer>
+
+</body>
+</html>
